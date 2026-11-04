@@ -13,16 +13,18 @@ npm run dev
 
 Vite listens on port 5173. `npm run build` creates the production site in `dist`; `npm run preview` serves that build locally. Deploy `dist` to any static host. No backend, API keys, or remote fonts are required.
 
-## Personal content and media
+## Resume content and media
 
-The resume and terms video were not attached to the request. No qualifications, employers, dates, or client projects have been invented. The three interface studies are explicitly marked as portfolio concepts.
+`src/content.js` contains the portfolio facts transcribed from the supplied **PRATHAM RATHORE RESUME V3.4.pdf**. The source PDF is kept outside the repository; the site publishes the requested portfolio facts, not the original document.
 
-- Edit `src/content.js` with verified biography and resume details.
-- Put the resume PDF in `public/media/`, then set `profile.resume` to `/media/resume.pdf` to enable the download link.
-- Put the supplied video in `public/media/`, then set `profile.termsVideo` to its path, e.g. `/media/terms.mp4`. The footer dialog renders an HTML video player when configured. Until then it shows a clear unavailable message without a broken request.
-- Add accessible WebVTT captions in the same directory and set `profile.termsCaptions` to `/media/terms.vtt`.
-- Replace concept cards in `src/components/Projects.jsx` with verified resume projects as appropriate.
-- Profile links are the provided LinkedIn and GitHub URLs. The copyright line uses the exact requested wording.
+The portfolio contains the resume summary and contact details, both projects (AI Agentic Workflow and Krishi Seva), both internships (CognioLabs and Dehix.org), the categorized tools and languages, all seven professional skills, all three education records, and all three certifications and achievements. Beginner levels, dates, scores, and reported figures are retained. The supporting document URLs come from the embedded links in the PDF. No project demo or source URL is invented where the resume does not provide one.
+
+The earlier concept projects, fictional dashboard imagery, generic biography, and assumed tech stack have been removed. Project diagrams illustrate the described workflow; they are not screenshots of the projects. Names such as **Zaiper**, **Snitch**, and **AntiGravity** retain the resume's spelling. Minor spelling and grammar corrections do not change its factual claims.
+
+- Update `src/content.js` when the resume changes.
+- The terms video is still not supplied. Put it in `public/media/` and set `profile.termsVideo` to its path, e.g. `/media/terms.mp4`. Until configured, the footer dialog displays an unavailable message without a broken request.
+- Add accessible WebVTT captions and set `profile.termsCaptions` to their path.
+- The footer retains the exact requested copyright wording.
 
 ## Typography
 
@@ -36,7 +38,7 @@ Telegraf and Eyesome Script font files were not supplied. To use the exact typef
 - The portfolio is inert while the intro is visible, preventing keyboard focus from moving behind it.
 - Navigation collapses to an accessible menu on mobile; dialogs support Escape and focus containment via native `<dialog>`.
 - Animations respect `prefers-reduced-motion`; skill cards work with keyboard focus as well as pointer tilt.
-- All hero artwork and miniature project visuals are original local assets. No third-party image requests are made.
+- All hero artwork and project diagrams are original local assets. No third-party image requests are made.
 
 ## Browser checks
 
@@ -44,6 +46,6 @@ Telegraf and Eyesome Script font files were not supplied. To use the exact typef
 npm test
 ```
 
-Playwright uses `/usr/bin/chromium` in this environment. On another machine, set `CHROMIUM_PATH` to a Chromium executable. Tests start Vite automatically and cover intro timing, theme persistence, concept dialogs, terms fallback, mobile navigation, layout overflow, reduced motion, and profile links.
+Playwright uses `/usr/bin/chromium` in this environment. On another machine, set `CHROMIUM_PATH` to a Chromium executable. Tests start Vite automatically and cover intro timing, theme persistence, resume project dialogs, terms fallback, mobile navigation, layout overflow, reduced motion, profile links, resume data coverage, and resume-only content.
 
 The current cloud task already has an isolated checkout at `/workspace/ProjectZyder13.09.14.12`; use it directly. No Git worktree is needed.
