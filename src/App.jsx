@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, ArrowDownRight, ArrowUpRight, Sun, Moon, Menu, X, Github, Linkedin, Code2, Sparkles, Play, RotateCcw, Mail, Phone, Globe } from 'lucide-react';
+import { ArrowDown, ArrowDownRight, ArrowUpRight, Sun, Moon, Menu, X, Github, Linkedin, Code2, Sparkles, RotateCcw, Mail, Phone, Globe } from 'lucide-react';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import TermsModal from './components/TermsModal';
 import { profile } from './content';
 import { Experience, Education, Achievements } from './components/ResumeSections';
 
@@ -43,21 +44,6 @@ function Loader({ theme, toggle, finish }) {
     </div>
     <div className="loader-bottom"><div><span className="tiny-label">LOADING THE EXPERIENCE</span><div className="loader-track"><motion.div style={{ width: `${progress}%` }}/></div></div><span className="loader-progress" aria-hidden="true">{String(progress).padStart(2, '0')}<sup>%</sup></span></div>
   </motion.div>;
-}
-
-function TermsModal({ close }) {
-  const dialog = useRef(null);
-  useEffect(() => {
-    if (!dialog.current.open) dialog.current.showModal();
-    const oldOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = oldOverflow; };
-  }, []);
-  return <dialog ref={dialog} className="info-dialog" onClose={close} onClick={(event) => { if (event.target === event.currentTarget) dialog.current.close(); }} aria-labelledby="info-dialog-title">
-    <div className="info-dialog-inner"><button className="dialog-close" onClick={() => dialog.current.close()} aria-label="Close window"><X size={22}/></button><p className="eyebrow">TERMS & CONDITIONS</p><h2 id="info-dialog-title">Terms & conditions</h2>
-      {profile.termsVideo ? <video controls playsInline preload="metadata" aria-label="Terms and conditions video"><source src={profile.termsVideo}/>{profile.termsCaptions && <track default kind="captions" src={profile.termsCaptions} srcLang="en" label="English"/>}Your browser does not support video playback.</video> : <div className="video-empty"><span><Play size={30}/></span><h3>Terms video unavailable.</h3><p>No terms video has been provided.</p></div>}
-    </div>
-  </dialog>;
 }
 
 function Reveal({ children, className = '', theme, delay = 0 }) {

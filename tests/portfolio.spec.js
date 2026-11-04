@@ -54,16 +54,63 @@ test('resume project dialogs open and support Escape and focus return', async ({
   }
 });
 
-test('footer video popup handles missing media without a broken player', async ({ page }) => {
+for (const theme of ['dark', 'light']) {
+  test(`terms video autoplays, stops on close, and restarts on reopen in ${theme} mode`, async ({ page }) => {
+    if (theme === 'light') await page.setViewportSize({ width: 390, height: 844 });
+    await enter(page, theme);
+    const trigger = page.getByRole('button', { name: 'Terms & conditions' });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'Terms & conditions' });
+    const video = dialog.locator('video');
+    await expect(dialog).toBeVisible();
+    await expect(video).toHaveAttribute('autoplay', '');
+    await expect(video).toHaveAttribute('playsinline', '');
+    await expect(video).toHaveJSProperty('videoWidth', 1920);
+    await expect(video).toHaveJSProperty('videoHeight', 1080);
+    await expect.poll(() => video.evaluate(media => media.currentSrc)).toContain('/media/terms.mp4');
+    await expect.poll(() => video.evaluate(media => media.currentTime)).toBeGreaterThan(0.05);
+    await expect(video).toHaveJSProperty('paused', false);
+    // Keep the old element reference so closing must actually stop its playback.
+    const previousVideo = await video.elementHandle();
+    await dialog.getByRole('button', { name: 'Close window' }).click();
+    await expect(dialog).toBeHidden();
+    await expect.poll(() => previousVideo.evaluate(media => media.paused)).toBe(true);
+    await expect(trigger).toBeFocused();
+    await trigger.click();
+    const restartedVideo = page.getByRole('dialog', { name: 'Terms & conditions' }).locator('video');
+    await expect(restartedVideo).toHaveJSProperty('videoWidth', 1920);
+    await expect.poll(() => restartedVideo.evaluate(media => media.currentTime)).toBeGreaterThan(0.05);
+    expect(await restartedVideo.evaluate(media => media.currentTime)).toBeLessThan(1.5);
+    await expect(restartedVideo).toHaveJSProperty('paused', false);
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toBeHidden();
+    await expect(trigger).toBeFocused();
+    await expect(page.getByText('All rights are reserved to Pratham Rathore @2026')).toBeVisible();
+  });
+}
+
+test('terms video falls back to muted playback when audible autoplay is blocked', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__portfolioOriginalPlay = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function () {
+      if (!this.muted) return Promise.reject(new DOMException('Audible autoplay blocked for this check', 'NotAllowedError'));
+      return window.__portfolioOriginalPlay.call(this);
+    };
+  });
   await enter(page);
   await page.getByRole('button', { name: 'Terms & conditions' }).click();
   const dialog = page.getByRole('dialog', { name: 'Terms & conditions' });
-  await expect(dialog).toBeVisible();
-  await expect(dialog.getByText('Terms video unavailable.')).toBeVisible();
-  await expect(dialog.locator('video')).toHaveCount(0);
+  const video = dialog.locator('video');
+  await expect(video).toHaveJSProperty('muted', true);
+  await expect.poll(() => video.evaluate(media => media.currentTime)).toBeGreaterThan(0.05);
+  await expect(video).toHaveJSProperty('paused', false);
+  await expect(dialog.getByRole('button', { name: 'Enable sound' })).toBeVisible();
+  await page.evaluate(() => { HTMLMediaElement.prototype.play = window.__portfolioOriginalPlay; });
+  await dialog.getByRole('button', { name: 'Enable sound' }).click();
+  await expect(video).toHaveJSProperty('muted', false);
+  await expect(dialog.getByRole('button', { name: 'Mute video' })).toBeVisible();
   await dialog.getByRole('button', { name: 'Close window' }).click();
   await expect(dialog).toBeHidden();
-  await expect(page.getByText('All rights are reserved to Pratham Rathore @2026')).toBeVisible();
 });
 
 test('mobile navigation works and all sections fit a narrow viewport', async ({ page }) => {

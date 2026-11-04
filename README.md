@@ -22,7 +22,7 @@ The portfolio contains the resume summary and contact details, both projects (AI
 The earlier concept projects, fictional dashboard imagery, generic biography, and assumed tech stack have been removed. Project diagrams illustrate the described workflow; they are not screenshots of the projects. Names such as **Zaiper**, **Snitch**, and **AntiGravity** retain the resume's spelling. Minor spelling and grammar corrections do not change its factual claims.
 
 - Update `src/content.js` when the resume changes.
-- The terms video is still not supplied. Put it in `public/media/` and set `profile.termsVideo` to its path, e.g. `/media/terms.mp4`. Until configured, the footer dialog displays an unavailable message without a broken request.
+- The supplied terms video is included as `public/media/terms.mp4` and configured in `profile.termsVideo`. Clicking Terms & conditions opens the popup and starts playback. Every opening starts a fresh playback; closing pauses it immediately. The player tries sound first, falls back to muted autoplay when browser policy requires it, and offers an Enable sound button. If all autoplay is blocked, a Play video button and native controls remain available.
 - Add accessible WebVTT captions and set `profile.termsCaptions` to their path.
 - The footer retains the exact requested copyright wording.
 
@@ -46,6 +46,6 @@ Telegraf and Eyesome Script font files were not supplied. To use the exact typef
 npm test
 ```
 
-Playwright uses `/usr/bin/chromium` in this environment. On another machine, set `CHROMIUM_PATH` to a Chromium executable. Tests start Vite automatically and cover intro timing, theme persistence, resume project dialogs, terms fallback, mobile navigation, layout overflow, reduced motion, profile links, resume data coverage, and resume-only content.
+Playwright uses `/usr/bin/chromium` in this environment. On another machine, set `CHROMIUM_PATH` to a Chromium executable. Tests start Vite automatically and cover intro timing, theme persistence, resume project dialogs, terms video playback, reopening, autoplay fallbacks, mobile navigation, layout overflow, reduced motion, profile links, resume data coverage, and resume-only content.
 
 The current cloud task already has an isolated checkout at `/workspace/ProjectZyder13.09.14.12`; use it directly. No Git worktree is needed.

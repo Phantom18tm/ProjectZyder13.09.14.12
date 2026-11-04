@@ -16,6 +16,11 @@
 .marquee-star svg{display:block;width:30px;height:30px}.loader-star svg{display:block;width:83px;height:83px}.about-monogram>span svg{width:70px;height:70px}.loader-title>span:not(.loader-script){margin-inline:.08em}.hero-name>span{display:flex}
 @media(max-width:620px){.marquee-star svg{width:24px;height:24px}.loader-star svg{width:70px;height:70px}}
 .resume-summary{max-width:720px;font-size:13px;line-height:1.85;color:var(--muted)}
+.terms-player-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}
+.terms-media-button{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 14px;color:var(--text);font-size:12px;min-height:40px}
+.terms-media-button:hover{border-color:var(--primary);color:var(--primary)}
+.terms-media-message{color:var(--muted);font-size:13px;line-height:1.7}
+.terms-media-message a{color:var(--primary);text-decoration:underline}
 .contact-bottom>.contact-details{display:grid;gap:12px}
 .contact-details a{display:flex;align-items:center;gap:10px;font-size:13px;overflow-wrap:anywhere;max-width:100%;min-width:0}
 .contact-details a svg{color:var(--primary)}

@@ -9,7 +9,7 @@ export const profile = {
   email: 'mailprathamrathore28@gmail.com',
   phone: '+91 8924050494',
   phoneHref: 'tel:+918924050494',
-  termsVideo: null,
+  termsVideo: "/media/terms.mp4",
   termsCaptions: null,
   intro: 'B.Tech Computer Science graduate with frontend development, AI workflow automation, and product strategy and management skills.',
   summary: 'Frontend development with HTML, CSS, JavaScript, and React.js; workflow automation with n8n, Apify, and Zaiper; and product strategy and management through insight generation and implementation.',
