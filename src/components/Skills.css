@@ -1,0 +1,31 @@
+.skills-section { padding-block: 110px; }
+.skills-heading-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 44px; }
+.skills-heading-row h2 { color: var(--text); font-family: var(--font-display, Impact, 'Arial Narrow', sans-serif); font-size: clamp(45px, 5.6vw, 76px); font-weight: 400; line-height: 1.02; margin: 20px 0 0; text-transform: uppercase; letter-spacing: -.02em; }
+.skills-heading-row h2 span { color: var(--primary); }
+.skills-intro { color: var(--muted); font-size: 14px; line-height: 1.8; max-width: 300px; margin: 0 0 2px; }
+.skills-grid { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; padding: 0; margin: 0; perspective: 1100px; }
+.skill-tile { min-width: 0; min-height: 244px; position: relative; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(135deg, color-mix(in srgb, var(--tool-color) 5%, transparent), transparent 55%), var(--surface); transform-style: preserve-3d; padding: 19px 17px 20px; outline: none; transition: border-color .3s ease, box-shadow .3s ease; backdrop-filter: blur(14px); }
+.skill-tile::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(ellipse at 50% 38%, color-mix(in srgb, var(--tool-color) 12%, transparent), transparent 65%); opacity: .5; pointer-events: none; transition: opacity .3s ease; }
+.skill-tile:hover, .skill-tile:focus-visible { border-color: color-mix(in srgb, var(--tool-color) 65%, transparent); box-shadow: 0 12px 45px #0002; }
+.skill-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.skill-tile:hover::before, .skill-tile:focus-visible::before { opacity: 1; }
+.skill-tile-index { color: var(--muted); font: 10px ui-monospace, monospace; letter-spacing: .08em; }
+.skill-tile-arrow { position: absolute; right: 16px; top: 17px; color: var(--muted); opacity: .55; }
+.skill-object { position: relative; width: 80px; height: 80px; margin: 26px auto 30px; transform-style: preserve-3d; color: var(--tool-color); }
+.skill-object svg { width: 100%; height: 100%; overflow: visible; }
+.skill-object > span { position: absolute; inset: 0; display: block; }
+.skill-object-face { transform: translateZ(17px); filter: drop-shadow(0 -1px 0 #fff8) drop-shadow(0 3px 3px #0002); }
+.skill-object-depth { transform: translate(-3px, 4px) translateZ(5px); color: color-mix(in srgb, var(--tool-color) 47%, #14201e); filter: drop-shadow(-1px 1px 0 currentColor) drop-shadow(-1px 1px 0 currentColor) drop-shadow(-1px 1px 0 currentColor); }
+.skill-object-shadow { transform: translate(1px, 15px) translateZ(-12px); filter: blur(10px); opacity: .22; color: var(--tool-color); }
+.skill-tile-label { position: relative; transform: translateZ(15px); }
+.skill-tile-label h3 { color: var(--text); font-size: 16px; font-weight: 550; margin: 0 0 7px; letter-spacing: -.02em; }
+.skill-tile-label p { color: var(--muted); font-size: 10px; line-height: 1.5; margin: 0; }
+.skills-bottom-note { margin-top: 26px; display: flex; gap: 9px; align-items: center; color: var(--muted); font-size: 11px; letter-spacing: .005em; }
+.skills-bottom-note > svg { margin-left: auto; }
+.skills-note-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+[data-theme='light'] .skill-tile { background: linear-gradient(135deg, #fff9, #fff3), var(--surface); box-shadow: 0 4px 24px #94244605; }
+[data-theme='light'] .skill-object-face { filter: drop-shadow(0 -1px 0 #fff8) drop-shadow(0 4px 3px #453e3e20); }
+[data-theme='light'] .skill-object-shadow { color: #453e3e; opacity: .18; }
+@media (max-width: 1050px) { .skills-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; } .skill-tile { min-height: 230px; padding-inline: 22px; } .skill-object { margin-block: 18px 28px; } }
+@media (max-width: 620px) { .skills-section { padding-block: 74px; } .skills-heading-row { display: block; margin-bottom: 30px; } .skills-intro { margin-top: 22px; font-size: 13px; } .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .skill-tile { min-height: 216px; padding: 16px; } .skill-object { width: 70px; height: 70px; margin-block: 22px; } .skill-tile-label h3 { font-size: 15px; } .skill-tile-label p { font-size: 10px; } .skills-bottom-note { font-size: 10px; align-items: flex-start; line-height: 1.6; } .skills-note-dot { margin-top: 5px; flex-shrink: 0; } .skills-bottom-note > svg { flex-shrink: 0; } }
+@media (prefers-reduced-motion: reduce) { .skill-tile { transition: none; } }
